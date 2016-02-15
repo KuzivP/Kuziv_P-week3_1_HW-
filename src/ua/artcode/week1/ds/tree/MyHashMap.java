@@ -1,8 +1,6 @@
 package ua.artcode.week1.ds.tree;
 
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 
 public class MyHashMap<K,V> implements Map<K,V> {
@@ -75,7 +73,17 @@ public class MyHashMap<K,V> implements Map<K,V> {
 
     @Override
     public Set<Entry<K, V>> entrySet() {
-        return null;
+
+        Set<Entry<K,V>> entrySet = new HashSet<Entry<K, V>>();
+
+        Iterator<MyNode<K,V>> iterator = new MyHashMapIterator();
+
+        while(iterator.hasNext()){
+            entrySet.add(iterator.next());
+        }
+
+
+        return entrySet;
     }
 
     @Override
@@ -90,15 +98,69 @@ public class MyHashMap<K,V> implements Map<K,V> {
 
     @Override
     public Set<K> keySet() {
-        return null;
+        Set<K> keys = new HashSet<K>();
+
+        Iterator<MyNode<K,V>> iterator = new MyHashMapIterator();
+
+        while(iterator.hasNext()){
+            keys.add(iterator.next().key);
+        }
+
+        return keys;
     }
 
     @Override
     public Collection<V> values() {
-        return null;
+        Collection<V> values = new ArrayList<V>();
+
+        Iterator<MyNode<K,V>> iterator = new MyHashMapIterator();
+
+        while(iterator.hasNext()){
+            values.add(iterator.next().value);
+        }
+
+
+        return values;
     }
 
-    private static class MyNode<NK,NV> {
+    private class MyHashMapIterator implements Iterator<MyNode<K,V>> {
+
+        int currIndex;
+        MyNode<K,V> currNode;
+
+        public MyHashMapIterator() {
+            // find first non null
+            findFirstNonNull();
+
+        }
+
+        private void findFirstNonNull() {
+            for (;currIndex < table.length && table[currIndex] == null; currIndex++) {}
+
+            currNode = currIndex < table.length ? table[currIndex] : null;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currNode != null;
+        }
+
+        @Override
+        public MyNode<K, V> next() {
+            MyNode<K,V> ret = currNode;
+
+            if(currNode.next != null){
+                currNode = currNode.next;
+            } else {
+                findFirstNonNull();
+            }
+
+
+            return ret;
+        }
+    }
+
+    private static class MyNode<NK,NV> implements Entry<NK,NV> {
 
         NK key;
         NV value;
@@ -108,6 +170,23 @@ public class MyHashMap<K,V> implements Map<K,V> {
             this.key = key;
             this.value = value;
             this.next = next;
+        }
+
+        @Override
+        public NK getKey() {
+            return key;
+        }
+
+        @Override
+        public NV getValue() {
+            return value;
+        }
+
+        @Override
+        public NV setValue(NV value) {
+            NV old = this.value;
+            this.value = value;
+            return old;
         }
     }
 

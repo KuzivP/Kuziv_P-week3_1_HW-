@@ -1,7 +1,9 @@
 package ua.artcode.week1.test;
 
+import ua.artcode.week1.ds.tree.MyBinarySearchTreeMap;
 import ua.artcode.week1.ds.tree.MyHashMap;
 
+import java.util.Comparator;
 import java.util.Map;
 
 /**
@@ -10,7 +12,12 @@ import java.util.Map;
 public class TestMap {
 
     public static void main(String[] args) {
-        Map<Integer, String> map = new MyHashMap<Integer,String>();
+        Map<Integer, String> map = new MyBinarySearchTreeMap<Integer, String>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1 - o2;
+            }
+        });
 
 
 
