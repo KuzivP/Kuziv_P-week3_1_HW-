@@ -1,0 +1,21 @@
+1 Actual common required topics 
+
+Recursion
+	https://www.youtube.com/watch?v=VJdPvYf6Or4&index=8&list=PLvmHg49t5OCQeODC20iDQpBOXFXHJz2e
+	tasks codingbat -> Recursion1
+	
+Design Patterns -> Solid
+	https://www.youtube.com/watch?v=VM4hCh7GTI4&list=PLvmHg49t5OCQeODC20iDQpBOXFXHJz2em&index=7
+	book Head First Design Patterns
+
+How to use github
+	https://www.youtube.com/watch?v=R6JomxUjTq8
+
+Data Structures - Collections
+	first blog post
+	http://art-code.com.ua/blog	
+	https://www.youtube.com/watch?v=TuPislIbz7M&index=27&list=PLvmHg49t5OCQ6icEM6GV00LKy0u4qffEi
+
+Generics
+	https://youtu.be/B5WLAIIjKLU
+	book Effective Java.
