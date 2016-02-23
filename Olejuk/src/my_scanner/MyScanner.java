@@ -9,49 +9,57 @@ import java.util.Scanner;
 public class MyScanner implements Closeable{
 
     private Reader reader;
+    private StringBuilder strBuilder = new StringBuilder();
 
     public MyScanner(InputStream source){
             reader = new InputStreamReader(source);
     }
 
-    public MyScanner(File fileName){
+    public MyScanner(File fileName) throws FileNotFoundException{
+        reader = new InputStreamReader(new FileInputStream(fileName));
+        read();
+    }
 
+    private void read(){
+        int ready = 0;
         try {
-            reader = new InputStreamReader(new FileInputStream(fileName));
-        } catch (Exception e) {
+            do {
+                char[] bArray = new char[1024];
+                ready = reader.read(bArray, 0, bArray.length);
+                strBuilder.append(bArray);
+            }while(ready == 1024);
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public String nextLine(){
 
-        char[] bArray = new char[1024];
-        StringBuilder str = new StringBuilder();
-        int ready = 0;
-        try {
-            do {
-                ready = reader.read(bArray, 0, bArray.length);
-                str.append(bArray);
-            }while(hasNext() && ready != -1);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(strBuilder.length() == 0){
+            read();
+            return strBuilder.toString();
         }
 
-        return str.substring(0, str.indexOf("\n"));
+        String out = strBuilder.substring(0, strBuilder.indexOf("\n")+1);
+        strBuilder.delete(0, strBuilder.indexOf("\n")+1);
+        return out;
     }
 
     public String next(){
-
-        String str = nextLine();
-
-        int index = str.indexOf(" ");
-
-        if(index == -1){
-            return str;
+        if(strBuilder.length() == 0){
+            read();
+        }
+        String out = "";
+        try{
+            out = strBuilder.substring(0, strBuilder.indexOf(" "));
+            strBuilder.delete(0, strBuilder.indexOf(" ")+1);
+        }catch (StringIndexOutOfBoundsException e){
+            out = strBuilder.substring(0, strBuilder.indexOf("\n"));
+            strBuilder.delete(0, strBuilder.indexOf("\n"));
+            return out;
         }
 
-        return str.substring(0, index);
+        return out;
     }
 
     public int nextInt(){
@@ -59,12 +67,10 @@ public class MyScanner implements Closeable{
     }
 
     public boolean hasNext(){
-        try {
-            return reader.ready();
-        }catch (IOException e){
-            e.printStackTrace();
+        if(strBuilder.charAt(0) == '\u0000'){
+            return false;
         }
-        return false;
+        return true;
     }
 
     @Override
