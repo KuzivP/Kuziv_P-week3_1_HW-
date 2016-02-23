@@ -27,39 +27,30 @@ public class MyScanner implements Closeable{
     public String nextLine(){
 
         char[] bArray = new char[1024];
+        StringBuilder str = new StringBuilder();
 
         try {
-            reader.read(bArray, 0, bArray.length);
+            while(reader.read(bArray, 0, bArray.length) != -1){
+                str.append(bArray);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        StringBuilder str = new StringBuilder();
-        str.append(bArray);
 
         return str.substring(0, str.indexOf("\n"));
     }
 
     public String next(){
 
-        char[] bArray = new char[1024];
+        String str = nextLine();
 
-        try {
-            reader.read(bArray, 0, bArray.length);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        StringBuilder str = new StringBuilder();
-        str.append(bArray);
-        String tmp = str.substring(0, str.indexOf("\n"));
         int index = str.indexOf(" ");
 
         if(index == -1){
-            return tmp;
+            return str;
         }
 
-        return tmp.substring(0, index);
+        return str.substring(0, index);
     }
 
     public int nextInt(){
