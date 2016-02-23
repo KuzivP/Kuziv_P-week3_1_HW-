@@ -16,4 +16,10 @@ public class TestMyScanner {
         Assert.assertEquals("nextLine test file", scanner.nextLine());
     }
 
+    @Test
+    public void testNext() throws Exception{
+        MyScanner scanner = new MyScanner(new File("./resources/nextLineTestFile.txt"));
+        Assert.assertEquals("nextLine", scanner.next());
+    }
+
 }

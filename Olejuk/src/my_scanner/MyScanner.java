@@ -40,6 +40,23 @@ public class MyScanner implements Closeable{
         return str.substring(0, str.indexOf("\n"));
     }
 
+    public String next(){
+
+        char[] bArray = new char[1024];
+
+        try {
+            reader.read(bArray, 0, bArray.length);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StringBuilder str = new StringBuilder();
+        str.append(bArray);
+        String tmp = str.substring(0, str.indexOf("\n"));
+
+        return tmp.substring(0, str.indexOf(" "));
+    }
+
     @Override
     public void close() throws IOException {
         reader.close();
