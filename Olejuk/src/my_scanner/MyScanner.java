@@ -28,11 +28,12 @@ public class MyScanner implements Closeable{
 
         char[] bArray = new char[1024];
         StringBuilder str = new StringBuilder();
-
+        int ready = 0;
         try {
-            while(reader.read(bArray, 0, bArray.length) != -1){
+            do {
+                ready = reader.read(bArray, 0, bArray.length);
                 str.append(bArray);
-            }
+            }while(hasNext() && ready != -1);
         } catch (IOException e) {
             e.printStackTrace();
         }
