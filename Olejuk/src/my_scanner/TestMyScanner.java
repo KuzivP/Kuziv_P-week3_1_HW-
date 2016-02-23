@@ -22,4 +22,10 @@ public class TestMyScanner {
         Assert.assertEquals("nextLine", scanner.next());
     }
 
+    @Test
+    public void testNextInt() throws Exception{
+        MyScanner scanner = new MyScanner(new File("./resources/nextIntTestFile.txt"));
+        Assert.assertEquals(123, scanner.nextInt());
+    }
+
 }

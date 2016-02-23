@@ -53,8 +53,17 @@ public class MyScanner implements Closeable{
         StringBuilder str = new StringBuilder();
         str.append(bArray);
         String tmp = str.substring(0, str.indexOf("\n"));
+        int index = str.indexOf(" ");
 
-        return tmp.substring(0, str.indexOf(" "));
+        if(index == -1){
+            return tmp;
+        }
+
+        return tmp.substring(0, index);
+    }
+
+    public int nextInt(){
+        return Integer.parseInt(next());
     }
 
     @Override
