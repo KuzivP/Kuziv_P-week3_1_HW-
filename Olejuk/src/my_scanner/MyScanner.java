@@ -1,9 +1,6 @@
 package my_scanner;
 
-import java.io.Closeable;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.Scanner;
 
 /**
@@ -11,13 +8,23 @@ import java.util.Scanner;
  */
 public class MyScanner implements Closeable{
 
-    private InputStreamReader reader;
+    private Reader reader;
 
     public MyScanner(InputStream source){
             reader = new InputStreamReader(source);
     }
 
-    public String next(){
+    public MyScanner(File fileName){
+
+        try {
+            reader = new InputStreamReader(new FileInputStream(fileName));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public String nextLine(){
 
         char[] bArray = new char[1024];
 
