@@ -66,6 +66,15 @@ public class MyScanner implements Closeable{
         return Integer.parseInt(next());
     }
 
+    public boolean hasNext(){
+        try {
+            return reader.ready();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     @Override
     public void close() throws IOException {
         reader.close();

@@ -28,4 +28,13 @@ public class TestMyScanner {
         Assert.assertEquals(123, scanner.nextInt());
     }
 
+    @Test
+    public void testHasNext() throws Exception{
+        MyScanner scanner = new MyScanner(new File("./resources/nextLineTestFile.txt"));
+        MyScanner scanner2 = new MyScanner(new File("./resources/emptyFile.txt"));
+        Assert.assertEquals(true, scanner.hasNext());
+        Assert.assertEquals(true, scanner.hasNext());
+        Assert.assertEquals(false, scanner2.hasNext());
+    }
+
 }
